@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar producto</title>
+    <link rel="stylesheet" href="../static/css/estilos.css">
+</head>
+
+<body>
+    <h1>Agregar Productos al Inventario</h1>
+    <h3>Codo a Codo 2023</h3>
+
+    <!--enctype="multipart/form-data es necesario para enviar archivos al back.-->
+    <form id="formulario" enctype="multipart/form-data">
+        <!-- <label for="id">ID</label>
+        <input type="number" id="id" name="id" required><br> -->
+
+        <label for="nombre">Nombre Completo</label>
+        <input type="text" id="nombre" name="nombre" required><br>
+
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" name="correo" required><br>
+
+        <label for="foto">Imagen del Usuario</label>
+        <input type="file" id="foto" name="foto">
+
+        <label for="contrasenia">Contraseña</label>
+        <input type="password" id="contrasenia" name="contrasenia">
+        
+        <button type="submit">Registrarse</button>
+        <a href="index.html">Menu principal</a>
+    </form>
+
+    <script>
+        const URL = "http://127.0.0.1:5000/"
+
+        // Capturamos el evento de envío del formulario
+        document.getElementById('formulario').addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitamos que se envie el form 
+
+            var formData = new FormData();
+            //formData.append('id', document.getElementById('id').value);
+            formData.append('nombre', document.getElementById('nombre').value);
+            formData.append('correo', document.getElementById('correo').value);
+            formData.append('foto', document.getElementById('foto').files[0]);
+            formData.append('contrasenia', document.getElementById('contrasenia').value);
+            
+            fetch(URL + 'usuarios', {
+                method: 'POST',
+                body: formData // Aquí enviamos formData en lugar de JSON
+            })
+            .then(function (response) {
+                if (response.ok) { return response.json(); }
+            })
+            .then(function (data) {
+                alert('Usuario agregado correctamente.');
+                // Limpiar el formulario para el proximo producto
+                //document.getElementById('id').value = "";
+                document.getElementById('nombre').value = "";
+                document.getElementById('correo').value = "";
+                document.getElementById('foto').value = "";
+                document.getElementById('contrasenia').value = "";
+            })
+            .catch(function (error) {
+                // Mostramos el error, y no limpiamos el form.
+                alert('Error al agregar el usuario.');
+            });
+            
+        })
+    </script>
+</body>
+
+</html>
