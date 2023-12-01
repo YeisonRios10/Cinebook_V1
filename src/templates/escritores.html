@@ -1,0 +1,103 @@
+{% extends 'base.html'%}
+
+{% block contenido %} 
+
+<!--? ======================================================================= -->
+<!--? ======================= C  A  R  R  U  S  E  L  ======================= -->
+<!--? ======================================================================= -->
+
+<div class="carrusel">
+    <section>
+        <img src="{{ url_for('static', filename = 'img/galeria/dahl.jpg') }}" alt="">
+        <img src="{{ url_for('static', filename = 'img/galeria/Rowling.webp') }}" alt="">
+        <img src="{{ url_for('static', filename = 'img/galeria/james.jpg') }}" alt="">
+        <img src="{{ url_for('static', filename = 'img/galeria/suzanne.jpg') }}" alt="">
+        <img src="{{ url_for('static', filename = 'img/galeria/tolkien.jpg') }}" alt="">
+    </section>
+</div>
+
+
+<!--! ====================================================================== -->
+<!--! ==================== E  S  C  R  I  T  O  R  E  S ==================== -->
+<!--! ====================================================================== -->
+
+<div class="pelis">
+    <div class="tarjeta">
+        <img src="{{ url_for('static', filename = 'img/escritores/lewis-carroll.jpeg') }}" alt="Alicia en el Pais de las Maravillas">
+        <a class="link-peliculas" href="{{ url_for('alicia')}}">Lewis Carroll</a>
+    </div>
+    <div class="tarjeta">
+        <img src="{{ url_for('static', filename = 'img/escritores/j-k-rowling-potter.jpg') }}" alt="Harry Potter La Cámara Secreta">
+        <a class="link-peliculas" href="{{ url_for('harry')}}">J K Rowling</a>
+    </div>
+    <div class="tarjeta">
+        <img src="{{ url_for('static', filename = 'img/escritores/stephen-king.webp') }}" alt="IT (ESO)">
+        <a class="link-peliculas" href="{{ url_for('it')}}">Stephen King</a>
+    </div>
+    <div class="tarjeta">
+        <img src="{{ url_for('static', filename = 'img/escritores/soy-leyeda-richard.webp') }}" alt="Soy Leyenda">
+        <a class="link-peliculas" href="{{ url_for('leyenda')}}">Richard Mathenson</a>
+    </div>
+</div>
+
+<!--? ======================================================================= -->
+<!--? ===========================  A  S  I  D  E  =========================== -->
+<!--? ======================================================================= -->
+
+<div class="aside">
+    <div>
+        <h4>Top Destacadas</h4>
+    </div>
+    <div class="destacadas" id="destacada">
+        <div id="destacada">
+        </div>
+    </div>
+</div>
+
+
+<!--* ======================================================================= -->
+<!--* =====================M  A  R  Q  U  E  S  I  N  A ===================== -->
+<!--* ======================================================================= -->
+<div class="marquesina">
+    <div class="slider">
+        <div class="slide-track">
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/alicia/1.jpeg') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/harry/harry.jpg') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/juegos/juegosdelhambre.webp') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/leyenda/legend.jpg') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/it/it.jpg') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/lord/losanillos.jpeg') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/alicia/1.jpeg') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/harry/harry.jpg') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/juegos/juegosdelhambre.webp') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/leyenda/legend.jpg') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/it/it.jpg') }}" alt=""></img></div>
+            <div class="slide"><img src="{{ url_for('static', filename = 'img/lord/losanillos.jpeg') }}" alt=""></img></div>
+        </div>
+    </div>
+</div>
+
+<!--! ======================================================================= -->
+<!--! ==================== P  E  L  Í  C  U  L  A  S 2 ====================== -->
+<!--! ======================================================================= -->
+
+<div class="pelis2">
+    <div class="tarjeta">
+        <img src="{{ url_for('static', filename = 'img/escritores/James_Dashner-maze-runner-1.webp') }}" alt="Maze Runner">
+        <a class="link-peliculas" href="{{ url_for('maze')}}">James Dasher</a>
+    </div>
+    <div class="tarjeta">
+        <img src="{{ url_for('static', filename = 'img/escritores/tolkien.jpg') }}" alt="La Comunidad del Anillo">
+        <a class="link-peliculas" href="{{ url_for('lord')}}">J. R. R. Tolkien</a>
+    </div>
+    <div class="tarjeta">
+        <img src="{{ url_for('static', filename = 'img/escritores/Roald_Dahl.jpg') }}" alt="Matilda">
+        <a class="link-peliculas" href="{{ url_for('matilda')}}">Roald Dahl</a>
+    </div>
+    <div class="tarjeta">
+        <img src="{{ url_for('static', filename = 'img/escritores/suzanne_collin2.jpg') }}" alt="Juegos del Hambre">
+        <a class="link-peliculas" href="{{ url_for('juegos')}}">Suzanne Collins</a>
+    </div>
+</div>
+
+{% endblock %}

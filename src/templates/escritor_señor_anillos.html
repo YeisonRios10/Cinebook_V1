@@ -1,0 +1,57 @@
+{% extends 'base_escritores.html'%}
+
+{% block contenido %}
+
+        <!--? ========================================================================= -->
+        <!--? ======================= C  O  N  T  E  N  I  D  O  ====================== -->
+        <!--? ========================================================================= -->
+
+        <main class="contenido">
+            <h1>J. R. R. Tolkien</h1>
+            <p>Nombre de nacimiento: John Ronald Reuel Tolkien</p>
+            <p>Nacimiento: 	3 de enero de 1892 Bloemfontein,  Estado Libre de Orange (actual Sudáfrica)</p>
+            <p>J. R. R. Tolkien fue un escritor, poeta, filólogo, lingüista y profesor universitario británico,
+                conocido principalmente por ser el autor de las novelas clásicas de fantasía heroica El hobbit,
+                El Silmarillion y <span class="link-peli"> <a href="{{ url_for('lord_peli')}}">El Señor de los Anillos.</a></span> 
+                Su obra ha tenido una gran influencia en la cultura popular y ha sido adaptada al cine, la televisión, los videojuegos 
+                y otros medios.</p>
+            <p>Se casó con Edith, su único amor, y tuvieron cuatro hijos. En sus tumbas se pueden ver los nombres de Beren y Luthien, 
+                personajes de El Silmarillion que se inspiraron en su relación.</p>
+            <p>Era amigo de C.S. Lewis, otro famoso escritor de fantasía y autor de Las crónicas de Narnia. Ambos formaban parte del 
+                Club Inklings, un grupo de escritores que se reunían para compartir y discutir sus obras.</p>
+            <p class="oculto">La historia de El Hobbit comenzó como unos cuentos que Tolkien narraba a sus hijos antes de dormir. 
+                Uno de ellos encontró un manuscrito incompleto y le animó a terminarlo.</p>
+            <p>Fallecimiento	2 de septiembre de 1973 (81 años) Bournemouth, Inglaterra, Bandera del Reino Unido Reino Unido.</p>
+        </main>
+
+        <!--* =========================================================== -->
+        <!--* ===================== A  S  I  D  E   ===================== -->
+        <!--* =========================================================== -->
+        <aside class="sidebar">
+            <img id="slide-tolkien" class="imagen" src="{{ url_for('static', filename = 'img/escritores/tolkien.jpg') }}"
+                alt="J. K. Rowling">
+            <h3>J. R. R. Tolkien</h3>
+        </aside>
+
+        <!--! ======================================================================= -->
+        <!--! ============================ C  A  R  D  S ============================ -->
+        <!--! ======================================================================= -->
+
+        <div class="card-1">
+            <img src="{{ url_for('static', filename = 'img/lord/el señor de los anillos - la comunidad.jpg') }}" width="100%" height="auto" alt="El señor de los anillos">
+            <a class="boton" href="{{ url_for('lord_peli')}}">Reproducir</a>
+
+        </div>
+        <div class="card-2">
+            <img src="{{ url_for('static', filename = 'img/lord/el señor de los anllos - el retorno.jpg') }}" width="100%" height="auto" alt="El señor de los anillos">
+            <a class="boton" href="{{ url_for('lord_peli')}}">Reproducir</a>
+        </div>
+        <div class="card-3">
+            <img src="{{ url_for('static', filename = 'img/escritores/anillos-la-comunidad.jpg') }}" width="100%" height="auto" alt="El señor de los anillos">
+            <a class="boton" href="#">Reproducir</a>
+        </div>
+        <div class="card-4">
+            <img src="{{ url_for('static', filename = 'img/harry/escritor.jpg') }}" width="100%" height="auto"
+                alt="Libro Harry Potter Misterio del Principe">
+            <a class="boton" href="#">Leer</a>
+        </div>3            {% endblock %}    

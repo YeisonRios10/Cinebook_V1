@@ -1,0 +1,42 @@
+{% extends 'base_crud.html'%}
+
+{% block contenido %}
+
+        <div class="peli1 container-fluid bg-gradient">
+            <div class="tarjeta">
+                <img src="{{ url_for('static', filename = 'img/alicia/poster-alicia.jpg') }}" alt="Alicia en el Pais de las Maravillas">
+                <a class="link-peliculas" href="{{ url_for('alicia_peli')}}">Alice in Wonderland</a>
+            </div>
+            <div class="tarjeta">
+                <img src="{{ url_for('static', filename = 'img/harry/camara.jpg') }}" alt="Harry Potter La Cámara Secreta">
+                <a class="link-peliculas" href="{{ url_for('harry_peli')}}">Harry Poter</a>
+            </div>
+            <div class="tarjeta">
+                <img src="{{ url_for('static', filename = 'img/it/it-eso.png') }}" alt="IT (ESO)">
+                <a class="link-peliculas" href="{{ url_for('it_peli')}}">IT</a>
+            </div>
+            <div class="tarjeta">
+                <img src="{{ url_for('static', filename = 'img/leyenda/soy-leyenda.png') }}" alt="Soy Leyenda">
+                <a class="link-peliculas" href="{{ url_for('leyenda_peli')}}">Soy Leyenda</a>
+            </div>
+        </div>
+
+        <div class="peli2">
+            <div class="tarjeta">
+                <img src="{{ url_for('static', filename = 'img/maze_runner/1.jpg') }}" alt="Maze Runner">
+                <a class="link-peliculas" href="{{ url_for('maze_peli')}}">Maze runner</a>
+            </div>
+            <div class="tarjeta">
+                <img src="{{ url_for('static', filename = 'img/lord/el señor de los anillos - la comunidad.jpg') }}" alt="La Comunidad del Anillo">
+                <a class="link-peliculas" href="{{ url_for('lord_peli')}}">La Comunidad del anillo</a>
+            </div>
+            <div class="tarjeta">
+                <img src="{{ url_for('static', filename = 'img/matilda/matilda1.png') }}" alt="Matilda">
+                <a class="link-peliculas" href="{{ url_for('matilda_peli')}}">Matilda</a>
+            </div>
+            <div class="tarjeta">
+                <img src="{{ url_for('static', filename = 'img/juegos/juegos-del-hambre.png') }}" alt="Juegos del Hambre">
+                <a class="link-peliculas" href="{{ url_for('juegos_peli')}}">Juegos del hambre</a>
+            </div>
+        </div>
+  {% endblock %} 

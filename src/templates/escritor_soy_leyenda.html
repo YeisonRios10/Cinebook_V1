@@ -1,0 +1,58 @@
+{% extends 'base_escritores.html'%}
+
+{% block contenido %}
+
+        <!--? ========================================================================= -->
+        <!--? ======================= C  O  N  T  E  N  I  D  O  ====================== -->
+        <!--? ========================================================================= -->
+
+        <main class="contenido">
+            <h1>Richard Matheson</h1>
+            <p>Nombre de nacimiento: Richard Burton Matheson</p>
+            <p>Nacimiento: 	20 de febrero de 1926, Allendale, Nueva Jersey, Estados Unidos</p>
+            <p>Richard Matheson fue un escritor y guionista estadounidense de fantasía, ciencia ficción y terror.</p>
+            <p>Su primer cuento publicado, “Nacido de hombre y mujer”, lo hizo famoso por su originalidad y horror. 
+                El relato narra en primera persona la vida de un niño monstruoso que vive encadenado en el sótano de sus padres</p>
+            <p>Su novela más conocida, <span class="link-peli"> <a href="{{ url_for('leyenda_peli')}}">Soy leyenda </a></span>, 
+                ha sido adaptada al cine en varias ocasiones, pero ninguna de ellas ha sido fiel al final original, 
+                que plantea una reflexión sobre la naturaleza del bien y el mal.</p>
+                <p>Su obra ha influido en muchos escritores de terror y ciencia ficción, entre ellos Stephen King, quien lo considera 
+                    su maestro y dice que le mostró el camino para escribir historias que mezclan lo cotidiano con lo sobrenatural</p>
+            <p class="oculto">Escribió guiones para series de televisión como La hora de Alfred Hitchcock, Dimensión desconocida y 
+                Cuentos asombrosos, así como para películas como El increíble hombre menguante, El último hombre vivo y El diablo sobre ruedas</p>
+            <p> Fallecimiento:	23 de junio de 2013 (87 años) en Calabasas, Los Ángeles, California, Estados Unidos</p>
+        </main>
+
+        <!--* =========================================================== -->
+        <!--* ===================== A  S  I  D  E   ===================== -->
+        <!--* =========================================================== -->
+        <aside class="sidebar">
+            <img id="slide-leyenda" class="imagen" src="{{ url_for('static', filename = 'img/leyenda/richard.webp') }}"
+                alt="J. K. Rowling">
+            <h3>Richard Matheson</h3>
+        </aside>
+
+        <!--! ======================================================================= -->
+        <!--! ============================ C  A  R  D  S ============================ -->
+        <!--! ======================================================================= -->
+
+        <div class="card-1">
+            <img src="{{ url_for('static', filename = 'img/leyenda/soy-leyenda.png') }}" width="100%" height="auto" alt="Soy Leyenda">
+            <a class="boton" href="{{ url_for('leyenda_peli')}}">Reproducir</a>
+
+        </div>
+        <div class="card-2">
+            <img src="{{ url_for('static', filename = 'img/leyenda/soy-leyenda-2.jpg') }}" width="100%" height="auto" alt="Soy Leyenda 2">
+            <a class="boton" href="{{ url_for('leyenda_peli')}}">Reproducir</a>
+        </div>
+        <div class="card-3">
+            <img src="{{ url_for('static', filename = 'img/escritores/soyleyenda1_libro.jpg') }}" width="100%" height="auto"
+                alt="Libro Soy Leyenda">
+            <a class="boton" href="#">Leer</a>
+        </div>
+        <div class="card-4">
+            <img src="{{ url_for('static', filename = 'img/escritores/la_casa_infernal_Matheson.jpg') }}" width="100%" height="auto"
+                alt="Libro La casa Infernal">
+            <a class="boton" href="#">Leer</a>
+        </div>
+            {% endblock %}  

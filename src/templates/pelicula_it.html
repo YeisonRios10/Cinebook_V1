@@ -1,0 +1,42 @@
+{% extends 'base_pelis.html'%} 
+
+{% block contenido %}
+
+
+        <aside class="sidebar">
+            <img id="slide-it" class="imagen" src="{{ url_for('static', filename = 'img/it/it2.jpg') }}"  alt="Alicia en el país de las maravillas">
+            <h1>IT (Eso)</h1>
+        </aside>
+        <main class="contenido">
+            <h1>IT (Eso)</h1>
+            <p>Varios niños de una pequeña ciudad del estado de Maine se alían para combatir a una entidad diabólica que adopta la forma de un payaso y desde hace mucho tiempo emerge cada 27 años para saciarse de sangre infantil.</p>
+            <p>It (en español, «Eso») es una novela de terror publicada en 1986 por el escritor estadounidense <span class="link-peli"><a href="{{ url_for('it')}}">Stephen King</a></span>. Cuenta la historia, en un juego de correspondencias con el pasado y el presente, de un grupo de siete amigos que son perseguidos por una entidad sobrenatural, al que llaman «Eso», que es capaz de cambiar de forma y se alimenta principalmente del terror que produce en sus víctimas. La narración orbita en torno a la localidad ficticia de Derry (Maine) y la inexplicable aura de horror y muerte que la rodea.</p>
+            <p>Título original: IT</p>
+            <p>Año: 2017</p>
+            <p>Duración: 135 min.</p> 
+            <p>Genero: Terror</p>
+            <a class="boton-escritor" href="{{ url_for('it')}}">Ver más</a>
+        </main>
+        <div class="trailer">
+            <h3>Ver Pelicula</h3>
+            <iframe width="100%" height="90%" src="https://www.youtube.com/embed/fP4BBZ76DGg?si=9Izkxeop8y-9aL0C&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>        
+        </div>
+        <div class="card-1">
+            <img src="{{ url_for('static', filename = 'img/alicia/alicia4.jpg') }}" width="100%" height="auto" alt="">
+            <a class="boton" href="{{ url_for('alicia_peli')}}">Reproducir</a>
+
+        </div>
+        <div class="card-2">
+            <img src="{{ url_for('static', filename = 'img/leyenda/soy-leyenda.png') }}" width="100%" height="auto" alt="">
+            <a class="boton" href="{{ url_for('leyenda_peli')}}">Reproducir</a>
+        </div>
+        <div class="card-3">
+            <img src="{{ url_for('static', filename = 'img/maze_runner/1.jpg') }}" width="100%" height="auto" alt="">
+            <a class="boton" href="{{ url_for('maze_peli')}}">Reproducir</a>
+        </div>
+        <div class="card-4">
+            <img src="{{ url_for('static', filename = 'img/harry/harry 1.jpg') }}" width="100%" height="auto" alt="">   
+            <a class="boton" href="{{ url_for('harry_peli')}}">Reproducir</a>
+        </div>
+
+        {% endblock %}    

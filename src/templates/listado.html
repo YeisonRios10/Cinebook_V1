@@ -5,57 +5,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Productos</title>
-    <link rel="stylesheet" href="../static/css/estilos.css">
+    <title>Listado de Usuarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos1.css') }}">
 </head>
 
 <body>
-    <h1>Listado de Productos</h1>
+    <h1>Listado de Usuarios</h1>
     <h3>Codo a Codo 2023</h3>
     <table>
         <thead>
             <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Cantidad</th>                
-                <th align="right">Precio</th>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Correo</th>                
                 <th>Imagen</th>
-                <th align="right">Proveedor</th>
+                <th>Contraseña</th>
             </tr>
         </thead>
-        <tbody id="tablaProductos"> </tbody>
+        <tbody id="tablaUsuarios"> </tbody>
     </table>
 
     <div class="contenedor-centrado">
-        <a href="index.html">Menu principal</a>
+        <a href="{{ url_for('index')}}">Menu principal</a>
     </div>
 
     <script>
         const URL = "http://127.0.0.1:5000/"
         // Realizamos la solicitud GET al servidor para obtener todos los productos
-        fetch(URL + 'productos')
+        fetch(URL + 'usuarios')
             .then(function (response) {
                 if (response.ok) {return response.json(); }
             })
             .then(function (data) {
-                let tablaProductos = document.getElementById('tablaProductos');
+                let tablaUsuarios = document.getElementById('tablaUsuarios');
 
                 // Iteramos sobre los productos y agregamos filas a la tabla
-                for (let producto of data) {
+                for (let usuario of data) {
                     let fila = document.createElement('tr');
-                    fila.innerHTML = '<td>' + producto.codigo + '</td>' +
-                        '<td>' + producto.descripcion + '</td>' +
-                        '<td align="right">' + producto.cantidad + '</td>' +
-                        '<td align="right">' + producto.precio + '</td>' +
+                    fila.innerHTML = '<td>' + usuario.id + '</td>' +
+                        '<td>' + usuario.nombre + '</td>' +
+                        '<td>' + usuario.correo + '</td>' +
                         // Mostrar miniatura de la imagen
-                        '<td><img src=./static/imagenes/' + producto.imagen_url +' alt="Imagen del producto" style="width: 100px;"></td>' +
-                        '<td align="right">' + producto.proveedor + '</td>';
-                    tablaProductos.appendChild(fila);
+                        '<td><img src="' + URL + 'static/uploads/' + usuario.foto + '" alt="Imagen del usuario" style="width: 100px;"></td>' +                     
+                        '<td>' + usuario.contrasenia + '</td>';
+                    tablaUsuarios.appendChild(fila);
                 }
             })
             .catch(function (error) {
                 // Código para manejar errores
-                alert('Error al obtener los productos.');
+                alert('Error al obtener los Usuarios.');
             });
     </script>
 </body>

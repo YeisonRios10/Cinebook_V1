@@ -1,0 +1,107 @@
+
+/** MAQUETADO DE LA PÁGINA PARA PANTALLA DE COMPU*/
+.index{
+    background: linear-gradient(to right, #080808f0, #080808f2), url(../img/fondo_crud.webp);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.contenedor{
+    font-family: Lora, serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    display: grid;
+    grid-template: auto auto auto auto auto auto / 27% 27% 27% 1fr;
+    grid-template-areas:"header header header header"
+                        "desc   desc   desc   desc "
+                        "peli1  peli1  peli1  pelis1"
+                        "peli2  peli2  peli2  pelis2"
+                        "footer footer footer footer";
+}
+.header{
+    grid-area: header;
+    margin-top: 1em;
+    padding: 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav a{
+    color: white;
+}
+.biblos{
+    margin-left: 2em;
+}
+.nav{
+    font-size: 18px;
+    margin-right: 2em;
+}
+.desc{
+    grid-area: desc;
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.vista{
+    margin-left: 5em;
+}
+.usuario{
+    margin-right: 6em;
+}
+
+
+.peli1, .peli2{
+    grid-area: peli1;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1em;
+}
+.tarjeta{
+    width: 18%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    
+}
+.tarjeta img{
+    width: 95%;
+    height: 100%;
+    object-fit: cover;
+    padding: 0.5rem;
+ }
+.peli2{
+    grid-area: peli2;
+}
+
+.footer{
+    grid-area: footer;
+    padding-top: 2em;
+}
+.contenedor2{
+    font-family: Lora, serif;
+    font-size: 16px;
+    font-weight: 400;
+    width: 80vw;
+    color: white;
+    display: grid;
+    grid-template: auto  / 60% 1fr;
+    grid-template-areas:"form   form";
+    margin-left: 10em;
+}
+.form{
+    grid-area: form;
+    padding: 1em;
+    display: flex;
+    margin-left: 10em;
+    justify-content: center;
+    align-items: center;
+}
+.formulario{
+    width: 80vw;
+    
+}

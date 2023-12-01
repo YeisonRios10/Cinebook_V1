@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/estilos.conocenos.css') }}">
+    <script src="https://kit.fontawesome.com/7f7fe5557e.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="libro.ico">
+    <title>Bibliocinéfilos</title>
+</head>
+
+<body class="index">
+    <div class="contenedor">
+        <!--* ======================================================================= -->
+        <!--* =====================M E N U  -  R E S P O S I V E===================== -->
+        <!--* ======================================================================= -->
+        <header class="header">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-white" href="{{ url_for('index')}}"><h2>Bibliocinéfilos</h2></a>
+                    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 container d-flex justify-content-around">
+                            <li class="nav-item">
+                                <a class="nav-link active text-white" aria-current="page" href="{{ url_for('index')}}">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ url_for('escritores')}}">Escritores</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="{{ url_for('index')}}" id="navbarDropdown"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Películas
+                                </a>
+                                <ul class="dropdown-menu bg-transparent" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item text-white" href="#">Acción</a></li>
+                                    <li><a class="dropdown-item text-white" href="#">Terror</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item text-white" href="#">Recomendaciones</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white"href="{{ url_for('conocenos')}}">Conócenos</a>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-3 " type="search" placeholder="Buscar" aria-label="Search"
+                                style="width:300px">
+                            <button class="btn btn-outline-light t" type="submit">Buscar</button>
+                        </form>
+                        <li class="user">
+                            <i class="fa-solid fa-user " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                style="color: #ffffff;" title="Regístrate o Inicia sesión"></i>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div id="popup" class="hidden">
+            <p class="description">"Explora el mundo mágico del cine a través de las páginas de la literatura"</p>
+            <img src="{{ url_for('static', filename = 'img/popup.jpg') }}" alt="Descripción de la imagen">
+        </div>
+
+        <!--? ==================================================================== -->
+        <!--? ======================= F   I   L   A     1  ======================= -->
+        <!--? ==================================================================== -->
+
+        <div class="fila1">
+            <div class="">
+                <h2>Conócenos</h2>
+            </div>
+
+            
+            <div class="fila">
+                <div class="filaimg">
+                    <img src="{{ url_for('static', filename = 'img/story.png') }}" alt="Bibliocinéfilos">
+                </div>
+                <div class="descripcion">
+                    <h3>Bibliocinélilos</h3>
+                    <p>
+                        Sitio web dedicado a disfrutar de obras literarias que fueron 
+                        adaptadas al cine.
+                    </p>
+                    <p>
+                        Conoce quén es el genio detrás de esa gran historia que hoy disfrutas 
+                        en la pantalla grande.</p>
+                    <p>  Explora el mundo mágico del cine a través de las páginas de la literatura</p>
+                    <div class="enlaces">
+                        <a href="https://github.com/YeisonRios10"><i class="fa-brands fa-github"
+                                style="color: #ffffff;"></i></a>
+                                <a href="https://www.instagram.com/bibliocinefilos/"><i class="fa-brands fa-instagram" style="color: #ffffff;"></i> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--! ================================================================= -->
+        <!--! ====================== F   I   L   A     2 ====================== -->
+        <!--! ================================================================= -->
+
+        <div class="fila2">
+            <div class="fila">
+
+                <div class="descripcion">
+                    <h3>Betancourt Olga</h3>
+                    <p>
+                        Estudiante de Full-Stack (Python) con el Programa Codo a Codo y estudiante de Full-Stack (Java) con la
+                        Academia Egg.
+                        Recién interesada por el desarrollo web, siendo curiosa y autodidacta, aplico lo aprendido en proyectos propios.
+                    </p>
+                    <div class="enlaces">
+                        <a href="https://github.com/blom31"> <i class="fa-brands fa-github" style="color: #ffffff;"></i></a>
+                        <a href="https://www.linkedin.com/in/olga-betancourt-86473b101/"><i class="fa-brands fa-linkedin" style="color: #ffffff;"></i></a>
+                    </div>
+                </div>
+                <div class="filaimg">
+                    <img src="{{ url_for('static', filename = 'img/us/Olga.png') }}" alt="Olga Betancourt">
+                </div>
+            </div>
+        </div>
+
+        <!--? ======================================================================= -->
+        <!--? ===========================  A  S  I  D  E  =========================== -->
+        <!--? ======================================================================= -->
+
+        <div class="aside">
+            <div>
+                <h4>Top Destacadas</h4>
+            </div>
+            <div class="destacadas">
+                <div id="destacada">
+
+                </div>
+
+            </div>
+        </div>
+
+        
+        <!--* ============================================================== -->
+        <!--* ===================== F   I   L   A    3 ===================== -->
+        <!--* ============================================================== -->
+        <div class="fila3">
+            <div class="fila">
+                <div class="filaimg">
+                    <img src="{{ url_for('static', filename = 'img/us/Yeison.jpg') }}" alt="Bibliocinéfilos">
+                </div>
+                <div class="descripcion">
+                    <h3>Yeison Rios Molina</h3>
+                    <p>
+                        Estudiante Full-Stack (Python) con el programa Codo a Codo y estudiante de la Ingeniería de Sistemas en la UNAD. <br>
+                        Un gran apasionado por el desarrollo Web tanto Front-end como Back-end, y con gran conocimiento en el lenguaje de programación Python y su framework Django.
+                    </p>
+                    
+                    <div class="enlaces">
+                        <a href="https://github.com/YeisonRios10"><i class="fa-brands fa-github"
+                            style="color: #ffffff;"></i></a>
+                    <a href="https://www.linkedin.com/in/yeison-rios-molina/"><i class="fa-brands fa-linkedin" style="color: #ffffff;"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--! ======================================================================= -->
+        <!--! ==================== F   I   L   A     4 ====================== -->
+        <!--! ======================================================================= -->
+
+        <div class="fila4">
+
+        </div>
+
+        <!--? ======================================================================= -->
+        <!--? ========================  F  O  O  T  E  R  =========================== -->
+        <!--? ======================================================================= -->
+        <div class="footer">
+            <div class="redes ">
+                <h4 class="text-white">Contáctanos</h4>
+                <a href="https://github.com/YeisonRios10"><i class="fa-brands fa-github"
+                        style="color: #ffffff;"></i></a>
+                <a href="https://www.instagram.com/bibliocinefilos/"><i class="fa-brands fa-instagram"
+                        style="color: #ffffff;"></i> </a>
+                <a href="pages/conocenos.html"><i class="fa-sharp fa-solid fa-people-group"
+                        style="color: #ffffff;"></i></a>
+            </div>
+
+            <div class="tecno">
+                <h4 class="text-white ">Tecnologías</h4>
+                <a href="https://getbootstrap.com/"> <i class="fa-brands fa-bootstrap" style="color: #ffffff;"
+                        title="Bootstrap"></i></a>
+                <a href="https://www.w3.org/Style/CSS/"><i class="fa-brands fa-css3" style="color: #ffffff;"
+                        title="Css5"></i></a>
+                <a href="https://fontawesome.com/"><i class="fa-brands fa-font-awesome" style="color: #ffffff;"
+                        title="Font Awesome"></i></a>
+                <a href="https://html.spec.whatwg.org/multipage/"><i class="fa-brands fa-html5" style="color: #ffffff;"
+                        title="Html5"></i></a>
+                <a href="https://www.w3.org/wiki/JavaScript_best_practices"><i class="fa-brands fa-js"
+                        style="color: #ffffff;" title="JavaScript"></i></a>
+            </div>
+        </div>
+
+
+        <!--! ======================================================================= -->
+        <!--! =====================  B O T O N  S C R O L L  ======================== -->
+        <!--! ======================================================================= -->
+
+        <button id="scrollToTopBtn" title="Ir arriba">
+
+        </button>
+        </div>
+    
+        </div>
+
+    <script src="{{ url_for('static', filename = 'js/apis.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/javaScript.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/bootstrap.bundle.min.js') }}"></script>
+</body>
+
+</html>

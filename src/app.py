@@ -4,9 +4,16 @@ import mysql.connector
 from werkzeug.utils import secure_filename
 import os
 import time 
+from rutas import configure_routes as configure_rutas
+from ruta_peli import configure_routes as configure_ruta_peli
+from ruta_escritores import configure_routes as configure_ruta_escritores
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 CORS(app)
+
+configure_rutas(app)  # Integrar las rutas generales
+configure_ruta_peli(app)  # Integrar las rutas específicas de Alicia
+configure_ruta_escritores(app) 
 
 class Catalogo:
     def __init__(self, host, user, password, database):
@@ -63,7 +70,7 @@ class Catalogo:
         return self.cursor.rowcont > 0
     
     def listar_usuarios(self):
-        self.cursor.execute("SELECT * FROM usuarios")
+        self.cursor.execute("SELECT * FROM usuarios ORDER BY id")
         usuarios = self.cursor.fetchall()
         return usuarios 
     
@@ -76,6 +83,7 @@ class Catalogo:
         usuario = self.consultar_usuario(id)
         if usuario:
             print("¨" * 40)
+            print(f"Id........: {usuario['id']}")
             print(f"Nombre....: {usuario['nombre']}")
             print(f"correo....: {usuario['correo']}")
             print(f"foto......: {usuario['foto']}")
@@ -90,7 +98,7 @@ catalogo = Catalogo(host='localhost', user='root', password='', database='app')
 #catalogo.agregar_usuario(1, 'Kevin De Bruyne', 'debruyne@outlook.es', '17.jpg', '@debruyne17')
 #catalogo.agregar_usuario(2, 'Karla Lopez','lopezk@outlook.es', 'karla.jpg','w@karla.o')
 
-RUTA_DESTINO = 'src/uploads'
+RUTA_DESTINO = './src/static/uploads'
 
 @app.route("/usuarios", methods=["GET"])
 def listar_usuarios():
@@ -132,25 +140,33 @@ def modificar_usuario(id):
     #Recojo los datos del form
     update_nombre = request.form.get("nombre")
     update_correo = request.form.get("correo")
-    update_foto = request.files('foto')
+    update_foto = request.files['foto']
+    if update_foto and update_foto.filename:
+        nombre_foto = secure_filename(update_foto.filename)
     update_contrasenia = request.form.get("contrasenia")
     
     # Procesamiento de la imagen
-    nombre_foto = secure_filename(foto.filename)
+    nombre_foto = secure_filename(update_foto.filename)
     nombre_base, extension = os.path.splitext(nombre_foto)
     nombre_foto = f"{nombre_base}_{int(time.time())}{extension}"
-    foto.save(os.path.join(RUTA_DESTINO, nombre_foto))
-
-    usuario = usuario = catalogo.consultar_usuario(id)
-    if usuario:
-        foto_vieja = usuario["foto"]
-        ruta_foto = os.path.join(RUTA_DESTINO, foto_vieja)
-        
-        if os.path.exists(ruta_foto):
-            os.remove(ruta_foto)
+    update_foto.save(os.path.join(RUTA_DESTINO, nombre_foto))
     
-    if catalogo.modificar_usuario(id, update_nombre, update_correo, update_foto, update_contrasenia):
-        return jsonify({"mensaje": "Usuario no encontrado"}), 403
+    usuario = catalogo.consultar_usuario(id)
+    if not usuario:
+        return jsonify({"mensaje": "Usuario no encontrado"}), 404
+    # Llamada a la función de modificar_usuario con los parámetros correctos
+    if catalogo.modificar_usuario(update_nombre, update_correo, nombre_foto, update_contrasenia):
+        return jsonify({"mensaje": "Usuario modificado"}), 200
+    # usuario = usuario = catalogo.consultar_usuario(id)
+    # if usuario:
+    #     foto_vieja = usuario["foto"]
+    #     ruta_foto = os.path.join(RUTA_DESTINO, foto_vieja)
+        
+    #     if os.path.exists(ruta_foto):
+    #         os.remove(ruta_foto)
+    
+    # if catalogo.modificar_usuario(id, update_nombre, update_correo, update_foto, update_contrasenia):
+    #     return jsonify({"mensaje": "Usuario no encontrado"}), 403
 
 @app.route("/usuarios/<int:id>", methods=["DELETE"])
 def eliminar_usuario(id):
@@ -172,14 +188,30 @@ def eliminar_usuario(id):
         return jsonify({"mensaje": "Usuario al eliminar el producto"}), 500
 
 
-@app.route('/')
-def index():
-    print(url_for('index'))
-    return render_template('index.html')
 
-@app.route('/altas')
-def altas():
-    return render_template('altas.html')
+@app.route('/escritores')
+def escritores(): 
+    return render_template('escritores.html')
+
+@app.route('/conocenos')
+def conocenos():
+    return render_template('conocenos.html')
+
+@app.route('/agregar')
+def agregar():
+    return render_template('agregar.html')
+
+@app.route('/registro')
+def registro():
+    return render_template('registro.html')
+
+@app.route('/listado')
+def listado():
+    return render_template('listado.html')
+
+@app.route('/modificar')
+def modificar():
+    return render_template('modificaciones.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

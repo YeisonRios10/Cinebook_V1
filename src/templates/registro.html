@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/registro.css')}}">
+</head>
+<body>
+    <form id="formulario" enctype="multipart/form-data">
+        <h1>Registro</h1>
+        <div class="grupo">
+            <input type="text" id="nombre" name="nombre" ><span class="barra" ></span>
+            <label for="nombre">Nombre Completo</label>
+        </div>
+        <div class="grupo">
+            <input type="email" name="" id="correo" name="correo"><span class="barra" ></span>
+            <label for="correo">Email</label>
+        </div>
+        <div class="grupo">
+            <input type="file" id="foto" name="foto">
+            <label for="foto">Imagen del Usuario</label>
+        </div>
+        <div class="grupo">
+            <input type="password" name="contrasenia" id="contrasenia" ><span class="barra"></span>
+            <label for="contrasenia">Contraseña</label>
+        </div>
+
+        <button type="submit">Registrarse</button>
+        <a href="{{ url_for('index')}}">Volver a Incio</a>
+        <p class="warnings" id="warnings"></p>
+    </form>
+    <script src="{{ url_for('static', filename = 'js/registro.js') }}"></script>
+</body>
+</html>

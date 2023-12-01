@@ -1,0 +1,63 @@
+{% extends 'base_escritores.html'%}
+
+{% block contenido %}
+<!--? ========================================================================= -->
+<!--? ======================= C  O  N  T  E  N  I  D  O  ====================== -->
+<!--? ========================================================================= -->
+
+<main class="contenido">
+    <h1>Suzanne Collins</h1>
+    <p>Nombre de nacimiento: Suzanne Collins</p>
+    <p>Nacimiento: 10 de agosto de 1962 (61 años), Hartford, Connecticut</p>
+    <p>La carrera de Suzanne empezó en 1991 como guionista en programas de televisión para niños trabajando para canales
+        como Nickelodeon.
+        Mientras trabajaba en el programa Generation O! de Kid's WBOOK, conoció al escritor de libros para niños James
+        Plumiew quien la
+        inspiró a escribir libros infantiles por su cuenta.</p>
+    <p>En 2008 publicó la novela por la que sería famosa, <span class="link-peli"> <a
+                href="{{ url_for('juegos_peli')}}">Los juegos del hambre.</a></span> </p>
+    <p><span class="link-peli"> <a href="{{ url_for('juegos_peli')}}">Los juegos del hambre.</a></span> ha
+        permanecido más de seis años hasta la fecha en la lista de los más vendidos de The New York Times desde su
+        publicación en septiembre
+        de 2008, </p>
+    <p class="oculto">En 2016 recibió el Premio del Gremio de Autores por su distinguido servicio a la comunidad
+        literaria por ejemplificar el poder único de la literatura
+        juvenil para cambiar vidas y crear amantes de los libros de por vida.</p>
+    <p> La idea de Los Juegos del Hambre le surgió al ver un programa de televisión sobre la guerra de Irak y otro sobre
+        los reality shows.
+        También se inspiró en el mito griego del Minotauro para crear el argumento principal de Los Juegos del Hambre.
+    </p>
+</main>
+
+<!--* =========================================================== -->
+<!--* ===================== A  S  I  D  E   ===================== -->
+<!--* =========================================================== -->
+<aside class="sidebar">
+    <img id="slide-collins" class="imagen" src="{{ url_for('static', filename = 'img/escritores/suzanne_collin2.jpg') }}" alt="J. K. Rowling">
+    <h3>Suzanne Collins</h3>
+</aside>
+
+<!--! ======================================================================= -->
+<!--! ============================ C  A  R  D  S ============================ -->
+<!--! ======================================================================= -->
+
+<div class="card-1">
+    <img src="{{ url_for('static', filename = 'img/escritores/juegos-en-llamas-2.jpg') }}" width="100%" height="auto" alt="Juegos del hambre 1">
+    <a class="boton" href="{{ url_for('juegos_peli')}}">Reproducir</a>
+
+</div>
+<div class="card-2">
+    <img src="{{ url_for('static', filename = 'img/escritores/sinsajo_1.jpg') }}" width="100%" height="auto" alt="Juegos del hambre 2">
+    <a class="boton" href="{{ url_for('juegos_peli')}}">Reproducir</a>
+</div>
+<div class="card-3">
+    <img src="{{ url_for('static', filename = 'img/escritores/sinsajo_2.jpg') }}" width="100%" height="auto" alt="Juegos del hambre 3">
+    <a class="boton" href="#">Reproducir</a>
+</div>
+<div class="card-4">
+    <img src="{{ url_for('static', filename = 'img/juegos/portada-juegos-1.jpg') }}" width="100%" height="auto"
+        alt="Libro Harry Potter Misterio del Principe">
+    <a class="boton" href="#">Leer</a>
+</div>
+
+{% endblock %}
