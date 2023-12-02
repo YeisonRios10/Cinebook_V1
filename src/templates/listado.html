@@ -31,6 +31,7 @@
 
     <script>
         const URL = "http://127.0.0.1:5000/"
+        const rutaImagenBase = "{{ url_for('static', filename='uploads/') }}";
         // Realizamos la solicitud GET al servidor para obtener todos los productos
         fetch(URL + 'usuarios')
             .then(function (response) {
@@ -43,12 +44,12 @@
                 // Iteramos sobre los productos y agregamos filas a la tabla
                 for (let usuario of data) {
                     let fila = document.createElement('tr');
-                    fila.innerHTML = '<td>' + usuario.id + '</td>' +
-                        '<td>' + usuario.nombre + '</td>' +
-                        '<td>' + usuario.correo + '</td>' +
+                    fila.innerHTML = '<td>' + usuario[0] + '</td>' +
+                        '<td>' + usuario[1]+ '</td>' +
+                        '<td>' + usuario[2] + '</td>' +
                         // Mostrar miniatura de la imagen
-                        '<td><img src=./src/uploads/' + usuario.foto +' alt="Imagen del usuario" style="width: 100px;"></td>' +                 
-                        '<td>' + usuario.contrasenia + '</td>';
+                        '<td><img src="' + rutaImagenBase + usuario[3] + '" alt="Imagen del usuario" style="width: 100px;"></td>' +                   
+                        '<td>' + usuario[4] + '</td>';
                     tablaUsuarios.appendChild(fila);
                 }
             })

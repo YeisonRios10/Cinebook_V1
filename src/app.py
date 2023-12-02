@@ -20,40 +20,30 @@ class Catalogo:
         self.conn = mysql.connector.connect(
             host=host,
             user=user,
-            password=password
+            password=password,
+            database=database  # Agregado: especifica la base de datos al conectar
         )
-        self.cursor = self.conn.cursor()
-        
-        try:
-            self.cursor.execute(f"USE {database}")
-        except mysql.connector.Error as err:
-            if err.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
-                self.cursor.execute(f"CREATE DATABASE {database}")
-                self.conn.database = database
-            else:
-                raise err
-            
-            self.cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios(
-                id int not null auto_increment,
-                nombre varchar(255),
-                correo varchar(255),
-                foto varchar(5000),
-                contrasenia varchar(255),
-                primary key(id))
-                                ''')
-            self.conn.commit()
-            self.cursor.close()
-            self.cursor = self.conn.cursor(dictionary=True)
-    
+        self.cursor = self.conn.cursor(dictionary=True)
+
+        self.cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios(
+            id int not null auto_increment,
+            nombre varchar(255),
+            correo varchar(255),
+            foto varchar(5000),
+            contrasenia varchar(255),
+            primary key(id))
+                            ''')
+        self.conn.commit()
+
     def agregar_usuario(self, nombre, correo, foto, contrasenia):
-        self.cursor.execute(f"SELECT * FROM usuarios WHERE correo = {correo}")
+        self.cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
         usuario_existe = self.cursor.fetchone()
         if usuario_existe:
             return False
-    
+
         sql = "INSERT INTO usuarios (nombre, correo, foto, contrasenia) VALUES (%s, %s, %s, %s)"
         valores = (nombre, correo, foto, contrasenia)
-        
+
         self.cursor.execute(sql, valores)
         self.conn.commit()
         return True
@@ -93,7 +83,7 @@ class Catalogo:
             print("Usuario no encontrado.")
                 
 #Cuerpo del programa
-catalogo = Catalogo(host='localhost', user='root', password='', database='app')        
+catalogo = Catalogo(host='localhost', user='root', password='root', database='app')        
     
 #catalogo.agregar_usuario(1, 'Kevin De Bruyne', 'debruyne@outlook.es', '17.jpg', '@debruyne17')
 #catalogo.agregar_usuario(2, 'Karla Lopez','lopezk@outlook.es', 'karla.jpg','w@karla.o')
@@ -120,20 +110,20 @@ def agregar_usuario():
     correo = request.form['correo']
     foto = request.files['foto']
     contrasenia = request.form['contrasenia']  
-    usuario = catalogo.consultar_usuario(id)
-    if not usuario:
-        nombre_foto = secure_filename(foto.filename)
-        nombre_base, extension = os.path.splitext(nombre_foto)
-        nombre_foto = f" {nombre_base}_{int(time.time())}{extension}"
-
+    
+    nombre_foto = secure_filename(foto.filename)
+    nombre_base, extension = os.path.splitext(nombre_foto)
+    nombre_foto = f" {nombre_base}_{int(time.time())}{extension}"
+    
     #Guardar la imagen en la carpeta de destino
-    # ruta_destino = os.path.join(RUTA_DESTINO, nombre_foto)
-    # foto.save(ruta_destino)
+    ruta_destino = os.path.join(RUTA_DESTINO, nombre_foto)
+    foto.save(ruta_destino)
     if catalogo.agregar_usuario(nombre, correo, nombre_foto, contrasenia):
-        foto.save(os.path.join(RUTA_DESTINO, nombre_foto))
         return jsonify({"mensaje": "Usuario agregado"}), 201
     else:
-        return jsonify({"mensaje": "Usuario ya existe"}), 400
+        return jsonify({"mensaje": "Usuario ya existe"}),400
+
+    
 
 @app.route("/usuarios/<int:id>", methods=["PUT"])
 def modificar_usuario():
@@ -149,7 +139,7 @@ def modificar_usuario():
     nombre_foto = f"{nombre_base}_{int(time.time())}{extension}"
     up_foto.save(os.path.join(RUTA_DESTINO, nombre_foto))
     
-    usuario = usuario = catalogo.consultar_usuario(id)
+    usuario = catalogo.consultar_usuario(id)
     if usuario:
         foto_vieja = usuario["foto"]
         ruta_foto = os.path.join(RUTA_DESTINO, foto_vieja)

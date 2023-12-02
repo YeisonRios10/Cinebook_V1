@@ -59,7 +59,8 @@ document.getElementById('formulario').addEventListener('submit', function (event
                 parrafo.innerHTML = ""; // Limpiar cualquier mensaje de advertencia
             })
             .catch(function (error) {
-                alert('Error al agregar el usuario.');
+                alert('El usuario ya existe');
+                
             });
     }
 });

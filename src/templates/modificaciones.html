@@ -53,72 +53,7 @@
     <script>
         const URL = "http://127.0.0.1:5000/"
 
-        const app = Vue.createApp({
-            data() {
-                return {
-                    id: '',
-                    nombre: '',
-                    correo: '',
-                    foto: '',
-                    fotoTemp: null,
-                    contrasenia: '',
-                    mostrarDatosUsuario: false,
-                };
-            },
-            methods: {
-                obtenerUsuario() {
-                    fetch(URL + 'usuario/' + this.id)
-                        .then(response => response.json())
-                        .then(data => {
-                            this.nombre = data.nombre;
-                            this.correo = data.correo;
-                            this.foto =  data.foto;
-                            this.mostrarDatosUsuario = true;
-                        })
-                        .catch(error => console.error('Error:', error));
-                },
-                seleccionarFoto(event) {
-                    const file = event.target.files[0];
-                    this.fotoSeleccionada = file;
-                    this.fotoTemp = URL.createObjectURL(file); // Crea una URL temporal para la vista previa
-                },
-                guardarCambios() {
-                    const formData = new FormData();
-                    formData.append('id', this.id);
-                    formData.append('nombre', this.nombre);
-                    formData.append('correo', this.correo);
-
-                    if (this.fotoSeleccionada) {
-                        formData.append('foto', this.fotoSeleccionada, this.fotoSeleccionada.name);
-                    }
-
-                    fetch(URL + 'usuarios/' + this.id, {
-                        method: 'PUT',
-                        body: formData,
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            alert('Usuario actualizado correctamente');
-                            this.limpiarFormulario();
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Error al actualizar el usuario');
-                        });
-                },
-                limpiarFormulario() {
-                    this.id =  '';
-                    this.nombre =  '';
-                    this.correo =  '';
-                    this.foto =  '';
-                    this.fotoTemp =  null;
-                    this.contrasenia =  '';
-                    this.mostrarDatosUsuario =  false;
-                }
-            }
-        });
-
-        app.mount('#app');
+        
     </script>
 
 </body>
