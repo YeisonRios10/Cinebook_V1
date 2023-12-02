@@ -46,7 +46,7 @@ class Catalogo:
             self.cursor = self.conn.cursor(dictionary=True)
     
     def agregar_usuario(self, nombre, correo, foto, contrasenia):
-        self.cursor.execute(f"SELECT * FROM usuarios WHERE correo = {correo}")
+        self.cursor.execute(f"SELECT * FROM usuarios WHERE correo = %s", (correo,))
         usuario_existe = self.cursor.fetchone()
         if usuario_existe:
             return False
@@ -67,7 +67,7 @@ class Catalogo:
         valores = (update_nombre, update_correo, update_foto, update_contrasenia, id)
         self.cursor.execute(sql, valores)
         self.conn.commit()
-        return self.cursor.rowcont > 0
+        return self.cursor.rowcount > 0
     
     def listar_usuarios(self):
         self.cursor.execute("SELECT * FROM usuarios ORDER BY id")
@@ -98,7 +98,7 @@ catalogo = Catalogo(host='localhost', user='root', password='', database='app')
 #catalogo.agregar_usuario(1, 'Kevin De Bruyne', 'debruyne@outlook.es', '17.jpg', '@debruyne17')
 #catalogo.agregar_usuario(2, 'Karla Lopez','lopezk@outlook.es', 'karla.jpg','w@karla.o')
 
-RUTA_DESTINO = './src/uploads/'
+RUTA_DESTINO = './src/static/uploads/'
 
 @app.route("/usuarios", methods=["GET"])
 def listar_usuarios():
@@ -120,11 +120,11 @@ def agregar_usuario():
     correo = request.form['correo']
     foto = request.files['foto']
     contrasenia = request.form['contrasenia']  
-    usuario = catalogo.consultar_usuario(id)
-    if not usuario:
-        nombre_foto = secure_filename(foto.filename)
-        nombre_base, extension = os.path.splitext(nombre_foto)
-        nombre_foto = f" {nombre_base}_{int(time.time())}{extension}"
+    # usuario = catalogo.consultar_usuario(id)
+    # if not usuario:
+    nombre_foto = secure_filename(foto.filename)
+    nombre_base, extension = os.path.splitext(nombre_foto)
+    nombre_foto = f" {nombre_base}_{int(time.time())}{extension}"
 
     #Guardar la imagen en la carpeta de destino
     # ruta_destino = os.path.join(RUTA_DESTINO, nombre_foto)

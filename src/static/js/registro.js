@@ -40,11 +40,14 @@ document.getElementById('formulario').addEventListener('submit', function (event
         formData.append('foto', document.getElementById('foto').files[0]);
         formData.append('contrasenia', contrasenia.value);
 
-        fetch(URL + 'usuarios', {
+        fetch(URL + '/usuarios', {
                 method: 'POST',
                 body: formData
+                
             })
+            
             .then(function (response) {
+                console.log(formData)
                 if (response.ok) {
                     return response.json();
                 }
