@@ -37,6 +37,7 @@
                 if (response.ok) {return response.json(); }
             })
             .then(function (data) {
+                console.log(data)
                 let tablaUsuarios = document.getElementById('tablaUsuarios');
 
                 // Iteramos sobre los productos y agregamos filas a la tabla
@@ -46,7 +47,7 @@
                         '<td>' + usuario.nombre + '</td>' +
                         '<td>' + usuario.correo + '</td>' +
                         // Mostrar miniatura de la imagen
-                        '<td><img src="' + URL + 'static/uploads/' + usuario.foto + '" alt="Imagen del usuario" style="width: 100px;"></td>' +                     
+                        '<td><img src=./src/uploads/' + usuario.foto +' alt="Imagen del usuario" style="width: 100px;"></td>' +                 
                         '<td>' + usuario.contrasenia + '</td>';
                     tablaUsuarios.appendChild(fila);
                 }

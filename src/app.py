@@ -46,10 +46,10 @@ class Catalogo:
             self.cursor = self.conn.cursor(dictionary=True)
     
     def agregar_usuario(self, nombre, correo, foto, contrasenia):
-        # self.cursor.execute(f"SELECT * FROM usuarios WHERE id = {id}")
-        # usuario_existe = self.cursor.fetchone()
-        # if usuario_existe:
-        #     return False
+        self.cursor.execute(f"SELECT * FROM usuarios WHERE correo = {correo}")
+        usuario_existe = self.cursor.fetchone()
+        if usuario_existe:
+            return False
     
         sql = "INSERT INTO usuarios (nombre, correo, foto, contrasenia) VALUES (%s, %s, %s, %s)"
         valores = (nombre, correo, foto, contrasenia)
@@ -62,9 +62,9 @@ class Catalogo:
         self.cursor.execute(f"SELECT * FROM usuarios WHERE id = {id}")
         return self.cursor.fetchone()
     
-    def modificar_usuario(self, update_nombre, update_correo, update_foto, update_contrasenia):
-        sql = "UPDATE usuarios SET nombre = %s, correo = %s, foto = %s, contrasenia = %s"
-        valores = (update_nombre, update_correo, update_foto, update_contrasenia)
+    def modificar_usuario(self, id, update_nombre, update_correo, update_foto, update_contrasenia):
+        sql = "UPDATE usuarios SET nombre = %s, correo = %s, foto = %s, contrasenia = %s WHERE id = %s"
+        valores = (update_nombre, update_correo, update_foto, update_contrasenia, id)
         self.cursor.execute(sql, valores)
         self.conn.commit()
         return self.cursor.rowcont > 0
@@ -85,9 +85,9 @@ class Catalogo:
             print("¨" * 40)
             print(f"Id........: {usuario['id']}")
             print(f"Nombre....: {usuario['nombre']}")
-            print(f"correo....: {usuario['correo']}")
-            print(f"foto......: {usuario['foto']}")
-            print(f"contraseña: {usuario['contrasenia']}")
+            print(f"Correo....: {usuario['correo']}")
+            print(f"Foto......: {usuario['foto']}")
+            print(f"Contraseña: {usuario['contrasenia']}")
             print("-" * 40)
         else:
             print("Usuario no encontrado.")
@@ -98,7 +98,7 @@ catalogo = Catalogo(host='localhost', user='root', password='', database='app')
 #catalogo.agregar_usuario(1, 'Kevin De Bruyne', 'debruyne@outlook.es', '17.jpg', '@debruyne17')
 #catalogo.agregar_usuario(2, 'Karla Lopez','lopezk@outlook.es', 'karla.jpg','w@karla.o')
 
-RUTA_DESTINO = './src/static/uploads'
+RUTA_DESTINO = './src/uploads/'
 
 @app.route("/usuarios", methods=["GET"])
 def listar_usuarios():
@@ -120,53 +120,48 @@ def agregar_usuario():
     correo = request.form['correo']
     foto = request.files['foto']
     contrasenia = request.form['contrasenia']  
-    
-    # usuario = catalogo.consultar_usuario(id)
-    # if not usuario:
-    nombre_foto = secure_filename(foto.filename)
-    nombre_base, extension = os.path.splitext(nombre_foto)
-    nombre_foto = f" {nombre_base}_{int(time.time())}{extension}"
+    usuario = catalogo.consultar_usuario(id)
+    if not usuario:
+        nombre_foto = secure_filename(foto.filename)
+        nombre_base, extension = os.path.splitext(nombre_foto)
+        nombre_foto = f" {nombre_base}_{int(time.time())}{extension}"
 
     #Guardar la imagen en la carpeta de destino
-    ruta_destino = os.path.join(RUTA_DESTINO, nombre_foto)
-    foto.save(ruta_destino)
+    # ruta_destino = os.path.join(RUTA_DESTINO, nombre_foto)
+    # foto.save(ruta_destino)
     if catalogo.agregar_usuario(nombre, correo, nombre_foto, contrasenia):
+        foto.save(os.path.join(RUTA_DESTINO, nombre_foto))
         return jsonify({"mensaje": "Usuario agregado"}), 201
     else:
         return jsonify({"mensaje": "Usuario ya existe"}), 400
 
 @app.route("/usuarios/<int:id>", methods=["PUT"])
-def modificar_usuario(id):
+def modificar_usuario():
     #Recojo los datos del form
     update_nombre = request.form.get("nombre")
     update_correo = request.form.get("correo")
-    update_foto = request.files['foto']
-    if update_foto and update_foto.filename:
-        nombre_foto = secure_filename(update_foto.filename)
+    up_foto = request.files['foto']
     update_contrasenia = request.form.get("contrasenia")
     
     # Procesamiento de la imagen
-    nombre_foto = secure_filename(update_foto.filename)
+    nombre_foto = secure_filename(up_foto.filename)
     nombre_base, extension = os.path.splitext(nombre_foto)
     nombre_foto = f"{nombre_base}_{int(time.time())}{extension}"
-    update_foto.save(os.path.join(RUTA_DESTINO, nombre_foto))
+    up_foto.save(os.path.join(RUTA_DESTINO, nombre_foto))
     
-    usuario = catalogo.consultar_usuario(id)
-    if not usuario:
-        return jsonify({"mensaje": "Usuario no encontrado"}), 404
-    # Llamada a la función de modificar_usuario con los parámetros correctos
-    if catalogo.modificar_usuario(update_nombre, update_correo, nombre_foto, update_contrasenia):
-        return jsonify({"mensaje": "Usuario modificado"}), 200
-    # usuario = usuario = catalogo.consultar_usuario(id)
-    # if usuario:
-    #     foto_vieja = usuario["foto"]
-    #     ruta_foto = os.path.join(RUTA_DESTINO, foto_vieja)
+    usuario = usuario = catalogo.consultar_usuario(id)
+    if usuario:
+        foto_vieja = usuario["foto"]
+        ruta_foto = os.path.join(RUTA_DESTINO, foto_vieja)
         
-    #     if os.path.exists(ruta_foto):
-    #         os.remove(ruta_foto)
-    
-    # if catalogo.modificar_usuario(id, update_nombre, update_correo, update_foto, update_contrasenia):
-    #     return jsonify({"mensaje": "Usuario no encontrado"}), 403
+        if os.path.exists(ruta_foto):
+            os.remove(ruta_foto)
+
+    # Llamada a la función de modificar_usuario con los parámetros correctos
+    if catalogo.modificar_usuario(id, update_nombre, update_correo, nombre_foto, update_contrasenia):
+        return jsonify({"mensaje": "Usuario modificado"}), 200
+    else:
+        return jsonify({"mensaje": "Usuario no encontrado"}), 403
 
 @app.route("/usuarios/<int:id>", methods=["DELETE"])
 def eliminar_usuario(id):
@@ -185,7 +180,7 @@ def eliminar_usuario(id):
     if catalogo.eliminar_usuario(id):
         return jsonify({"mensaje": "Usuario eliminado"}), 200
     else:
-        return jsonify({"mensaje": "Usuario al eliminar el producto"}), 500
+        return jsonify({"mensaje": "Error al eliminar el usuario"}), 500
 
 
 
