@@ -106,8 +106,6 @@ class Catalogo:
 #Cuerpo del programa
 catalogo = Catalogo(host='localhost', user='root', password='root', database='app')        
     
-#catalogo.agregar_usuario(1, 'Kevin De Bruyne', 'debruyne@outlook.es', '17.jpg', '@debruyne17')
-#catalogo.agregar_usuario(2, 'Karla Lopez','lopezk@outlook.es', 'karla.jpg','w@karla.o')
 
 RUTA_DESTINO = './src/static/uploads/'
 
@@ -193,7 +191,7 @@ def eliminar_usuario(id):
     else:
         return jsonify({"mensaje": "Error al eliminar el usuario"}), 500
 
-
+#rutas dinamicas
 
 @app.route('/escritores')
 def escritores(): 
