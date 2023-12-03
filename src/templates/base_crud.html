@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dashboard.css')}}">
+    <script src="https://kit.fontawesome.com/7f7fe5557e.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'img/libro.ico') }}">
+    <title>Bibliocinéfilos</title>
+</head>
+
+<body class="index">
+    <div class="contenedor">
+        <header class="header">
+            <div class="biblos">
+                <h2>Bibliocinefilos</h2>
+            </div>
+            <div class="panel">
+                <h2>Panel Administrador</h2>
+            </div>
+            <nav class="nav ">
+                <a class="nav-link" aria-current="page" href="{{ url_for('agregar')}}">Agregar</a>
+                <a class="nav-link" href="{{ url_for('modificaciones')}}">Modificar</a>
+                <a class="nav-link" href="{{ url_for('eliminar')}}">Borrar</a>
+                <a class="nav-link" href="#">Salir</a>
+            </nav>
+        </header>
+
+        <div class="desc">
+            <div class="vista">
+                <hr class="my-2">
+                <h4 class="fst-italic">Lista de Usuarios</h4>
+                <hr class="my-2">
+            </div>
+            <div class="usuario">
+                <h4 class="fst-italic">Nombre del Admin</h4>
+            </div>
+        </div>
+        {% block contenido %}
+
+        <!-- ========================  C O N T E N I D O   =========================== -->
+
+        {% endblock %}
+
+
+
+        <footer class="footer">
+            <div class="">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('conocenos')}}">About us</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="https://github.com/blom31" target="_blank">Github</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

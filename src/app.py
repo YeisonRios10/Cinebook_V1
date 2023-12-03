@@ -88,7 +88,7 @@ class Catalogo:
     def eliminar_usuario(self, id):
         self.cursor.execute(f"DELETE FROM usuarios WHERE id = {id}")
         self.conn.commit()
-        return self.cursor.rowcont > 0
+        return self.cursor.rowcount > 0
     
     def mostrar_usuario(self, id):
         usuario = self.consultar_usuario(id)
@@ -177,7 +177,7 @@ def eliminar_usuario(id):
     # Busco el usuario guardado
     usuario = usuario = catalogo.consultar_usuario(id)
     if usuario: # Si existe el usuario...
-        foto_vieja = usuario["foto"]
+        foto_vieja = usuario[3]
         # Armo la ruta a la imagen
         ruta_foto = os.path.join(RUTA_DESTINO, foto_vieja)
 
@@ -203,7 +203,7 @@ def conocenos():
 
 @app.route('/agregar')
 def agregar():
-    return render_template('agregar.html')
+    return render_template('registro.html')
 
 @app.route('/registro')
 def registro():
@@ -216,6 +216,10 @@ def listado():
 @app.route('/modificaciones')
 def modificaciones():
     return render_template('modificaciones.html')
+
+@app.route('/eliminar')
+def eliminar():
+    return render_template('listadoEliminar.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
