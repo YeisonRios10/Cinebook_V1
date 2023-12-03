@@ -20,44 +20,65 @@ class Catalogo:
         self.conn = mysql.connector.connect(
             host=host,
             user=user,
-            password=password,
-            database=database  # Agregado: especifica la base de datos al conectar
+            password=password
         )
-        self.cursor = self.conn.cursor(dictionary=True)
-
-        self.cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios(
-            id int not null auto_increment,
-            nombre varchar(255),
-            correo varchar(255),
-            foto varchar(5000),
-            contrasenia varchar(255),
-            primary key(id))
-                            ''')
-        self.conn.commit()
-
+        self.cursor = self.conn.cursor()
+        
+        try:
+            self.cursor.execute(f"USE {database}")
+        except mysql.connector.Error as err:
+            if err.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
+                self.cursor.execute(f"CREATE DATABASE {database}")
+                self.conn.database = database
+            else:
+                raise err
+            
+            self.cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios(
+                id int not null auto_increment,
+                nombre varchar(255),
+                correo varchar(255),
+                foto varchar(5000),
+                contrasenia varchar(255),
+                primary key(id))
+                                ''')
+            self.conn.commit()
+            self.cursor.close()
+            self.cursor = self.conn.cursor(dictionary=True)
+    
     def agregar_usuario(self, nombre, correo, foto, contrasenia):
         self.cursor.execute(f"SELECT * FROM usuarios WHERE correo = %s", (correo,))
         usuario_existe = self.cursor.fetchone()
         if usuario_existe:
             return False
-
+    
         sql = "INSERT INTO usuarios (nombre, correo, foto, contrasenia) VALUES (%s, %s, %s, %s)"
         valores = (nombre, correo, foto, contrasenia)
-
+        
         self.cursor.execute(sql, valores)
         self.conn.commit()
         return True
 
     def consultar_usuario(self, id):
-        self.cursor.execute(f"SELECT * FROM usuarios WHERE id = {id}")
+        self.cursor.execute("SELECT * FROM usuarios WHERE id = %s", (id,))
         return self.cursor.fetchone()
     
     def modificar_usuario(self, id, update_nombre, update_correo, update_foto, update_contrasenia):
-        sql = "UPDATE usuarios SET nombre = %s, correo = %s, foto = %s, contrasenia = %s WHERE id = %s"
-        valores = (update_nombre, update_correo, update_foto, update_contrasenia, id)
-        self.cursor.execute(sql, valores)
-        self.conn.commit()
-        return self.cursor.rowcount > 0
+        try:
+            sql = "UPDATE usuarios SET nombre = %s, correo = %s, foto = %s, contrasenia = %s WHERE id = %s"
+            valores = (update_nombre, update_correo, update_foto, update_contrasenia, id)
+            self.cursor.execute(sql, valores)
+            self.conn.commit()
+
+            if self.cursor.rowcount > 0:
+                return {'success': True, 'message': 'Usuario actualizado correctamente'}
+            else:
+                return {'success': False, 'message': 'No se pudo actualizar el usuario'}
+
+        except Exception as e:
+        # Log del error
+            print(f"Error: {str(e)}")
+            return {'success': False, 'message': 'Ocurrió un error durante la actualización'}
+
     
     def listar_usuarios(self):
         self.cursor.execute("SELECT * FROM usuarios ORDER BY id")
@@ -73,11 +94,11 @@ class Catalogo:
         usuario = self.consultar_usuario(id)
         if usuario:
             print("¨" * 40)
-            print(f"Id........: {usuario['id']}")
-            print(f"Nombre....: {usuario['nombre']}")
-            print(f"Correo....: {usuario['correo']}")
-            print(f"Foto......: {usuario['foto']}")
-            print(f"Contraseña: {usuario['contrasenia']}")
+            print(f"Id........: {usuario[0]}")  # Asumiendo que 'id' está en la primera posición
+            print(f"Nombre....: {usuario[1]}")  # Asumiendo que 'nombre' está en la segunda posición
+            print(f"Correo....: {usuario[2]}")  # Asumiendo que 'correo' está en la tercera posición
+            print(f"Foto......: {usuario[3]}")  # Asumiendo que 'foto' está en la cuarta posición
+            print(f"Contraseña: {usuario[4]}")  # Asumiendo que 'contrasenia' está en la quinta posición
             print("-" * 40)
         else:
             print("Usuario no encontrado.")
@@ -117,17 +138,16 @@ def agregar_usuario():
     nombre_foto = f" {nombre_base}_{int(time.time())}{extension}"
 
     #Guardar la imagen en la carpeta de destino
-    ruta_destino = os.path.join(RUTA_DESTINO, nombre_foto)
-    foto.save(ruta_destino)
+    # ruta_destino = os.path.join(RUTA_DESTINO, nombre_foto)
+    # foto.save(ruta_destino)
     if catalogo.agregar_usuario(nombre, correo, nombre_foto, contrasenia):
+        foto.save(os.path.join(RUTA_DESTINO, nombre_foto))
         return jsonify({"mensaje": "Usuario agregado"}), 201
     else:
-        return jsonify({"mensaje": "Usuario ya existe"}),400
-
-    
+        return jsonify({"mensaje": "Usuario ya existe"}), 400
 
 @app.route("/usuarios/<int:id>", methods=["PUT"])
-def modificar_usuario():
+def modificar_usuario(id):
     #Recojo los datos del form
     update_nombre = request.form.get("nombre")
     update_correo = request.form.get("correo")
@@ -140,9 +160,9 @@ def modificar_usuario():
     nombre_foto = f"{nombre_base}_{int(time.time())}{extension}"
     up_foto.save(os.path.join(RUTA_DESTINO, nombre_foto))
     
-    usuario = catalogo.consultar_usuario(id)
+    usuario = usuario = catalogo.consultar_usuario(id)
     if usuario:
-        foto_vieja = usuario["foto"]
+        foto_vieja = usuario[3]
         ruta_foto = os.path.join(RUTA_DESTINO, foto_vieja)
         
         if os.path.exists(ruta_foto):
@@ -195,8 +215,8 @@ def registro():
 def listado():
     return render_template('listado.html')
 
-@app.route('/modificar')
-def modificar():
+@app.route('/modificaciones')
+def modificaciones():
     return render_template('modificaciones.html')
 
 if __name__ == '__main__':
