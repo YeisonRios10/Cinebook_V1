@@ -104,7 +104,7 @@ class Catalogo:
             print("Usuario no encontrado.")
                 
 #Cuerpo del programa
-catalogo = Catalogo(host='localhost', user='root', password='root', database='app')        
+catalogo = Catalogo(host='localhost', user='root', password='', database='app')        
     
 
 RUTA_DESTINO = './src/static/uploads/'
