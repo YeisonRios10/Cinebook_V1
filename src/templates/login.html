@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos1.css') }}">
+    <title>Iniciar Sesión</title>
+</head>
+<body>
+    <h2>Iniciar Sesión</h2>
+    <form action="/login" method="post">
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" required>
+        
+        <label for="contrasenia">Contraseña:</label>
+        <input type="password" id="contrasenia" name="contrasenia" required>
+        
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+    <script>
+        const URL = "http://127.0.0.1:5000/";
+
+        function validarFormulario(event) {
+            const correoValue = correo.value.trim();
+            const contraseniaValue = contrasenia.value.trim();
+
+            if (correoValue === "" || contraseniaValue === "") {
+                // Evita que el formulario se envíe
+                event.preventDefault();
+                alert("Por favor, completa todos los campos antes de enviar el formulario.");
+            }
+            // Si los campos están completos, el formulario se enviará normalmente
+        }
+    </script>
+</body>
+</html>

@@ -14,10 +14,10 @@
     <h3>Modificar</h3>
     <div id="app">
         <form id="usuarioForm">
-            <label for="id">Id:</label>
+            <label for="id">User:</label>
             <input type="number" id="id" required><br>
             <button type="button" onclick="obtenerUsuario()">Modificar Usuario</button>
-            <a href="{{ url_for('index')}}">Menu principal</a>
+            <a href="{{ url_for('dashboard')}}">Menu principal</a>
         </form>
 
         <div id="datosUsuario" style="display: none;">
@@ -38,7 +38,7 @@
                 <input type="password" id="contraModificar" required><br>
     
                 <button type="button" onclick="guardarCambios()">Guardar Cambios</button>
-                <a href="modificaciones.html">Cancelar</a>
+                <a href="{{ url_for('dashboard')}}">Cancelar</a>
             </form>
         </div>
     </div>
@@ -97,7 +97,7 @@
                 formData.append('id', id);
                 formData.append('nombre', nombre);
                 formData.append('correo', correo);
-                formData.append('contra', contra); // Asegúrate de manejar esto en tu servidor
+                formData.append('contrasenia', contra); // Asegúrate de manejar esto en tu servidor
     
                 const nuevaFotoInput = document.getElementById('nuevaFoto');
                 if (nuevaFotoInput.files && nuevaFotoInput.files[0]) {

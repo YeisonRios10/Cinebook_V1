@@ -4,4 +4,4 @@ def configure_routes(app):
     # Configurar rutas generales
     @app.route('/')
     def index():
-        return render_template('dashboard.html')
+        return render_template('index.html')

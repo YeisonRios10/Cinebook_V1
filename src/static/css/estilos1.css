@@ -31,7 +31,7 @@ form {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    background-color: white;
+    background: #4d4c4c58;
     border: 1px solid lightslategray;
     border-radius: 5px;
 }
@@ -71,7 +71,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color:  #007bff;
 }
 
 button {
@@ -85,7 +85,8 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #f7f8f9;
+    color:#303132
 }
 
 a {
